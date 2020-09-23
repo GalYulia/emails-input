@@ -2,7 +2,7 @@ import { validateEmail } from "../../utils/index";
 import styles from "./style.css";
 
 class EmailComponent {
-constructor(value){
+    constructor(value){
         this.value=value;
         this.isValid=validateEmail(value);
     }
