@@ -1,0 +1,25 @@
+:root {
+    --background-color: rgba(102, 153, 255, 0.2);
+    --text-color: #050038;
+}
+
+.email-container {
+    border-radius: 100px;
+    height: 24px;
+}
+
+.email-container--valid {
+    background: var(--background-color);
+}
+
+.email-container--invalid {
+
+}
+
+.email__text {
+        font-size: 14px;
+        line-height: 24px;
+        text-align: right;
+        color: var(--text-color);
+}
+

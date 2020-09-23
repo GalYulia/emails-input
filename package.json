@@ -1,0 +1,22 @@
+{
+  "name": "emails-input",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/GalYulia/emails-input.git",
+  "author": "Galieva Yulia <Gal_Yulia@mail.ru>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "serve": "serve dist/"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@rollup/plugin-html": "^0.2.0",
+    "rollup": "^2.28.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-postcss": "^3.1.8",
+    "serve": "^11.3.2"
+  }
+}

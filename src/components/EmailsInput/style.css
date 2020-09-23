@@ -1,0 +1,8 @@
+.emails-editor-container {
+    height: 96px;
+    width: 440px;
+    background: #FFFFFF;
+    border: 1px solid #C3C2CF;
+    border-radius: 4px;
+    padding: 8px;
+}
