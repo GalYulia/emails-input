@@ -1,25 +1,38 @@
-:root {
-    --background-color: rgba(102, 153, 255, 0.2);
-    --text-color: #050038;
-}
+@import '../../styles/colors.css';
+@import '../../styles/typography.css';
 
-.email-container {
-    border-radius: 100px;
+.container {
+    display: inline-flex;
+    align-items: baseline;
     height: 24px;
+    margin-right: 8px;
 }
 
-.email-container--valid {
-    background: var(--background-color);
+.container--valid {
+    border-radius: 100px;
+    padding-left: 10px;
+    padding-right: 8px;
+    background: var(--color-background--transparent);
 }
 
-.email-container--invalid {
-
+.container--invalid {
+    border-bottom: 1px dashed var(--color-border--error);
+    margin-right: 8px;
 }
 
-.email__text {
-        font-size: 14px;
-        line-height: 24px;
-        text-align: right;
-        color: var(--text-color);
+.contact {
+    /*@apply --regular;*/
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.contact-remove-button {
+    background-image: url(_icons/remove.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    height: 8px;
+    margin-left: 8px;
 }
 

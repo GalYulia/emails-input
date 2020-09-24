@@ -1,45 +1,63 @@
-import EmailComponent from "../EmailComponent";
-import styles from "./style.css";
-import {getUniqueName} from "../../utils/index";
+import EmailComponent from '../EmailComponent';
+import {getUniqueName} from '../../utils/index';
+import styles from './style.css';
 
 export default class EmailsAreaComponent {
-    constructor(container) {
-        this.container = container;
-        this.ref = getUniqueName();
-        this.render();
-        this.element = document.getElementById(this.ref);
-        this.addEventListeners();
+  constructor(container) {
+    this.container = container;
+    this.ref = getUniqueName();
+    this.render();
+    this.element = document.getElementById(this.ref);
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
+    this.element.addEventListener('focusout', (e)=>this.onBlurHandle(e));
+    this.element.addEventListener('keydown', (e)=>this.onKeyupHandle(e));
+  }
+
+  onKeyupHandle(e){
+    if (e.key === 'Enter') {
+      return this.addEmail(e.target.value);
     }
 
-    addEventListeners() {
-        this.element.addEventListener("blur", (e)=>this.onBlurHandle(e));
-        this.element.addEventListener("keydown", (e)=>this.onKeyupHandle(e));
+    if (e.key === ',') {
+      e.preventDefault();
+      return this.addEmail(e.target.value.split(',')[0]);
+    }
+  }
+
+  onBlurHandle(e){
+    this.addEmail(e.target.value);
+  }
+
+  addEmail(value) {
+    if (!value) {
+      return;
     }
 
-    onKeyupHandle(e){
-        if (e.key === 'Enter' || e.key === 'Comma') {
-            console.log('ENTER');
-        }
-    }
+    this.element.lastElementChild.value='';
+    const emailComponent = new EmailComponent(value);
+    this.element.lastElementChild.insertAdjacentHTML('beforebegin', emailComponent.template);
+  }
 
-    onBlurHandle(e){
-        this.addEmail(e.target.textContent);
-    }
+  get template() {
+    return`<div class="${styles['emails-editor-container']}" id=${this.ref}>
+        <input class="${styles['emails-input']}" placeholder="add more people...">
+    </div>`;
+  }
 
-    addEmail(value) {
-        const emailComponent = new EmailComponent(value);
-        this.element.insertAdjacentHTML('beforeend', emailComponent.template);
-        //надо создать новую текстовую ноду
-        this.element.appendChild(document.createTextNode(' '))
-    }
+  // get template() {
+  //   return`
+  //   <div>
+  //       <input aria-hidden="true" id=${this.ref}>
+  //       <textarea placeholder="add more people..." class="${styles['emails-editor-container']}"></textarea>
+  //   </div>`;
+  // }
 
-    get template() {
-        return`<div contenteditable="true" class="${styles["emails-editor-container"]}"" id=${this.ref}>add more people...</div>`
-    }
-
-    render() {
-        this.container.insertAdjacentHTML('beforeend', this.template);
-    }
+  render() {
+    this.container.insertAdjacentHTML('beforeend', this.template);
+  }
 }
 
 

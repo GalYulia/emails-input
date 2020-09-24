@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "curly": 2,
+    "indent": 0,
+    "quotes": [2, "single"],
+    "semi": [2, "always"],
+    "no-var": 2,
+    "no-useless-call": 2,
+    "no-console": 2,
+    "max-len": [
+      "error",
+      {
+        "code": 100
+//        "ignoreRegExpLiterals": true,
+//        "ignoreStrings": true,
+//        "ignoreUrls": true
+      }
+    ]
+  }
+}
+  

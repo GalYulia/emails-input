@@ -1,0 +1,9 @@
+/*reset style and apply new*/
+input, select, textarea, button {
+    font-family:inherit;
+}
+
+button {
+    padding: 4px;
+    cursor: pointer;
+}
