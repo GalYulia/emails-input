@@ -1,6 +1,21 @@
 var EmailsEditor = (function () {
   'use strict';
 
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
   const getUniqueName = () => `ref_${Math.random().toString(20).substr(2, 6)}`;
   const validateEmail = email => {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -58,8 +73,37 @@ var EmailsEditor = (function () {
   var styles$1 = {"emails-editor-container":"style_emails-editor-container__2zuNF","emails-input":"style_emails-input__2gLac"};
   styleInject(css_248z$1);
 
+  const COMMA_KEY = ',';
+  const ENTER_KEY = 'Enter';
   class EmailsAreaComponent {
     constructor(container) {
+      _defineProperty(this, "onKeyupHandle", e => {
+        if (e.key === ENTER_KEY) {
+          return this.addEmail(e.target.value);
+        }
+
+        if (e.key === COMMA_KEY) {
+          e.preventDefault();
+          return this.addEmail(e.target.value.split(',')[0]);
+        }
+      });
+
+      _defineProperty(this, "onBlurHandle", e => {
+        console.log(e.target.value);
+        this.addEmail(e.target.value);
+      });
+
+      _defineProperty(this, "onPasteHandle", e => {
+        e.preventDefault();
+        const pastedData = (e.clipboardData || window.clipboardData).getData('text'); //todo window
+
+        if (pastedData.includes(COMMA_KEY)) {
+          return pastedData.split(COMMA_KEY).forEach(email => this.addEmail(email));
+        }
+
+        this.addEmail(e.target.value);
+      });
+
       this.container = container;
       this.ref = getUniqueName();
       this.render();
@@ -68,23 +112,9 @@ var EmailsEditor = (function () {
     }
 
     addEventListeners() {
-      this.element.addEventListener('focusout', e => this.onBlurHandle(e));
-      this.element.addEventListener('keydown', e => this.onKeyupHandle(e));
-    }
-
-    onKeyupHandle(e) {
-      if (e.key === 'Enter') {
-        return this.addEmail(e.target.value);
-      }
-
-      if (e.key === ',') {
-        e.preventDefault();
-        return this.addEmail(e.target.value.split(',')[0]);
-      }
-    }
-
-    onBlurHandle(e) {
-      this.addEmail(e.target.value);
+      this.element.addEventListener('focusout', this.onBlurHandle);
+      this.element.addEventListener('keydown', this.onKeyupHandle);
+      this.element.addEventListener('paste', this.onPasteHandle);
     }
 
     addEmail(value) {
@@ -101,14 +131,7 @@ var EmailsEditor = (function () {
       return `<div class="${styles$1['emails-editor-container']}" id=${this.ref}>
         <input class="${styles$1['emails-input']}" placeholder="add more people...">
     </div>`;
-    } // get template() {
-    //   return`
-    //   <div>
-    //       <input aria-hidden="true" id=${this.ref}>
-    //       <textarea placeholder="add more people..." class="${styles['emails-editor-container']}"></textarea>
-    //   </div>`;
-    // }
-
+    }
 
     render() {
       this.container.insertAdjacentHTML('beforeend', this.template);
