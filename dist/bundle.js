@@ -63,7 +63,7 @@ var EmailsEditor = (function () {
       }
     }
 
-    var css_248z = ":root {\n    --color-background--transparent: rgba(102, 153, 255, 0.2);\n    --color-background--light: #ffffff;\n    --color-text: #050038;\n    --color-border--error: #d92929;\n    --color-border--regular: #C3C2CF;\n}\n\n.style_container__1xvWy {\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n    box-sizing: border-box;\n}\n\n.style_container--valid__r2_7X {\n    border-radius: 100px;\n    padding-left: 10px;\n    padding-right: 8px;\n    background: var(--color-background--transparent);\n}\n\n.style_container--invalid__i5KSO {\n    border-bottom: 1px dashed var(--color-border--error);\n    box-sizing:border-box;\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(assets/remove.png);\n    background-color: transparent;\n    background-repeat: no-repeat;\n    border: none;\n    height: 8px;\n    width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    /*for accessibility*/\n    outline-width: 0;\n}\n\n";
+    var css_248z = ":root {\n    --color-background--transparent: rgba(102, 153, 255, 0.2);\n    --color-background--light: #ffffff;\n    --color-text: #050038;\n    --color-border--error: #d92929;\n    --color-border--regular: #C3C2CF;\n}\n\n.style_container__1xvWy {\n    height: 24px;\n    min-width: 0;\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n}\n\n.style_container--valid__r2_7X {\n    border-radius: 100px;\n    padding: 0 8px 0 10px;\n    background: var(--color-background--transparent);\n}\n\n.style_container--invalid__i5KSO {\n    border-bottom: 1px dashed var(--color-border--error);\n    box-sizing:border-box;\n    transform: translateZ(0);\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(assets/remove.png);\n    background-color: transparent;\n    border: none;\n    height: 8px;\n    min-width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    outline: 0 solid;;\n}\n\n";
     var styles = {"container":"style_container__1xvWy","container--valid":"style_container--valid__r2_7X","container--invalid":"style_container--invalid__i5KSO","contact":"style_contact__2FGSj","contact-remove-button":"style_contact-remove-button__yLia_"};
     styleInject(css_248z);
 
@@ -71,8 +71,6 @@ var EmailsEditor = (function () {
         function ElementCreator() {
         }
         Object.defineProperty(ElementCreator.prototype, "template", {
-            // constructor() {
-            // }
             get: function () {
                 return this._template;
             },
@@ -104,7 +102,7 @@ var EmailsEditor = (function () {
         return EmailComponent;
     }(ElementCreator));
 
-    var css_248z$1 = ":root {\n    --color-background--transparent: rgba(102, 153, 255, 0.2);\n    --color-background--light: #ffffff;\n    --color-text: #050038;\n    --color-border--error: #d92929;\n    --color-border--regular: #C3C2CF;\n}\n.style_emails-editor-container__2zuNF {\n  font-family:'OpenSans-Regular', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    display: flex;\n    flex-wrap: wrap;\n    align-content:flex-start;\n    /*временно*/\n    height: 96px;\n    background: var(--color-background--light);\n    border: 1px solid var(--color-border--regular);\n    border-radius: 4px;\n    padding: 8px;\n    overflow: scroll;\n}\n.style_emails-input__2gLac {\n  font-family:'OpenSans-Regular', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 24px;\n    outline: none;\n    border: 0;\n    flex: 1 0 auto;\n    margin: 0 8px 4px 0;\n}";
+    var css_248z$1 = ":root {\n    --color-background--transparent: rgba(102, 153, 255, 0.2);\n    --color-background--light: #ffffff;\n    --color-text: #050038;\n    --color-border--error: #d92929;\n    --color-border--regular: #C3C2CF;\n}\n.style_emails-editor-container__2zuNF {\n  font-family: 'OpenSans-Regular', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    display: flex;\n    flex-wrap: wrap;\n    align-content: flex-start;\n    background: var(--color-background--light);\n    border: 1px solid var(--color-border--regular);\n    border-radius: 4px;\n    padding: 8px;\n    overflow: scroll;\n}\n.style_emails-input__2gLac {\n  font-family: 'OpenSans-Regular', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 24px;\n    flex: 1 0 auto;\n    margin: 0 8px 4px 0;\n    outline: 0 solid;;\n    border: 0;\n}";
     var styles$1 = {"emails-editor-container":"style_emails-editor-container__2zuNF","emails-input":"style_emails-input__2gLac"};
     styleInject(css_248z$1);
 
@@ -117,6 +115,7 @@ var EmailsEditor = (function () {
             _this.DELETE_BUTTON_TAG = 'BUTTON';
             _this.init = function () {
                 _this.element = document.getElementById(_this.ref);
+                _this.input = _this.element.lastElementChild;
                 _this.addEventListeners();
             };
             _this.onKeyupHandle = function (e) {
@@ -137,27 +136,29 @@ var EmailsEditor = (function () {
                 if (pastedData.includes(COMMA_KEY)) {
                     return pastedData.split(COMMA_KEY).forEach(function (email) { return _this.addEmail(email); });
                 }
-                _this.addEmail(e.target.value);
+                _this.addEmail(pastedData);
             };
             _this.onClickHandle = function (e) {
-                _this.deleteEmail(e.target);
+                if (e.target.nodeName == _this.DELETE_BUTTON_TAG) {
+                    _this.deleteEmail(e.target);
+                }
+                // if (e) {
+                //   this.input.focus()
+                // }
             };
             _this.addEmail = function (value) {
                 if (!value) {
                     return;
                 }
-                var emailInput = _this.element.lastElementChild;
                 // @ts-ignore:
-                emailInput.value = '';
+                _this.input.value = '';
                 var emailComponent = new EmailComponent(value);
-                emailComponent.render(emailInput, 'beforebegin');
+                emailComponent.render(_this.input, 'beforebegin');
                 emailComponent.isValid && _this.validEmailsCount++;
             };
             _this.deleteEmail = function (targetElement) {
-                if (targetElement && targetElement.nodeName == _this.DELETE_BUTTON_TAG) {
-                    targetElement.parentNode.getAttribute('valid') !== 'true' && _this.validEmailsCount--;
-                    targetElement.parentNode.remove();
-                }
+                targetElement.parentNode.getAttribute('valid') !== 'true' && _this.validEmailsCount--;
+                targetElement.parentNode.remove();
             };
             _this.getValidEmailsCount = function () { return _this.validEmailsCount; };
             _this.render = function (container) {

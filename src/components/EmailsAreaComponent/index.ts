@@ -12,6 +12,7 @@ export default class EmailsAreaComponent extends ElementCreator{
   private readonly DELETE_BUTTON_TAG = 'BUTTON';
   private validEmailsCount: number;
   private element: HTMLElement;
+  private input: Element;
 
   constructor() {
     super();
@@ -21,6 +22,7 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   private init = () => {
     this.element = document.getElementById(this.ref);
+    this.input = this.element.lastElementChild;
     this.addEventListeners();
   }
 
@@ -55,31 +57,34 @@ export default class EmailsAreaComponent extends ElementCreator{
       return pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
     }
 
-    this.addEmail(e.target.value);
+    this.addEmail(pastedData);
   }
 
   private onClickHandle = (e: any) => {
-    this.deleteEmail(e.target);
+    if (e.target.nodeName == this.DELETE_BUTTON_TAG) {
+      this.deleteEmail(e.target);
+    }
+
+    // if (e) {
+    //   this.input.focus()
+    // }
   }
 
   private addEmail = (value: string) => {
     if (!value) {
       return;
     }
-    const emailInput = this.element.lastElementChild;
     // @ts-ignore:
-    emailInput.value = '';
+    this.input.value = '';
 
     const emailComponent = new EmailComponent(value);
-    emailComponent.render(emailInput, 'beforebegin');
+    emailComponent.render(this.input, 'beforebegin');
     emailComponent.isValid && this.validEmailsCount++ ;
   }
 
   private deleteEmail = (targetElement: any) => {
-    if (targetElement && targetElement.nodeName == this.DELETE_BUTTON_TAG) {
-      targetElement.parentNode.getAttribute('valid') !== 'true' && this.validEmailsCount--;
-      targetElement.parentNode.remove();
-    }
+    targetElement.parentNode.getAttribute('valid') !== 'true' && this.validEmailsCount--;
+    targetElement.parentNode.remove();
   }
 
   public getValidEmailsCount = (): number => this.validEmailsCount;
