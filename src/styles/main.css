@@ -1,9 +1,14 @@
-/*reset style and apply new*/
-input, select, textarea, button {
-    font-family:inherit;
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../assets/fonts/OpenSans-Regular.woff') format('woff');
+}
+
+input {
+    padding: 0;
 }
 
 button {
-    padding: 4px;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
 }

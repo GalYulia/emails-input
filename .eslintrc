@@ -3,11 +3,13 @@
     "browser": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
   "parserOptions": {
     "sourceType": "module"
   },
   "rules": {
+    "@typescript-eslint/rule-name": "error",
     "curly": 2,
     "indent": 0,
     "quotes": [2, "single"],
@@ -19,9 +21,6 @@
       "error",
       {
         "code": 100
-//        "ignoreRegExpLiterals": true,
-//        "ignoreStrings": true,
-//        "ignoreUrls": true
       }
     ]
   }

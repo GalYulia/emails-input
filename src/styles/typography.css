@@ -1,8 +1,6 @@
 :root {
-    --fontFamily: 'Open Sans', serif;
-
     --regular: {
-        font-family: var(--fontFamily);
+        font-family:'OpenSans-Regular', sans-serif;
         font-size: 14px;
         line-height: 24px;
     };

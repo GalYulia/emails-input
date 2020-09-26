@@ -1,26 +1,30 @@
 import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
+import typeScript from 'rollup-plugin-typescript2';
 import postcssImport from 'postcss-import';
+import postcssApply from 'postcss-apply';
 import {eslint} from 'rollup-plugin-eslint';
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: {
     file: 'dist/bundle.js',
     format: 'iife',
     name: 'EmailsEditor'
   },
   plugins: [
-    babel({exclude: 'node_modules/**'}),
+    nodeResolve(),
+    // babel({exclude: 'node_modules/**'}),
     postcss({
       extract: false,
       modules: true,
       use: [],
-      plugins: [postcssImport()]
+      plugins: [postcssImport(), postcssApply()]
     }),
-    nodeResolve(),
+    typeScript({tsconfig: 'tsconfig.json'}),
     eslint()
+    // terser()
     // replace({
     //     exclude: 'node_modules/**',
     //     ENV: JSON.stringify(process.env.NODE_ENV || 'development'),

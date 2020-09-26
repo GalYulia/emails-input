@@ -1,11 +1,10 @@
 @import '../../styles/colors.css';
-@import '../../styles/typography.css';
 
 .container {
-    display: inline-flex;
-    align-items: baseline;
-    height: 24px;
-    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    margin: 0 8px 4px 0;
+    box-sizing: border-box;
 }
 
 .container--valid {
@@ -17,22 +16,26 @@
 
 .container--invalid {
     border-bottom: 1px dashed var(--color-border--error);
-    margin-right: 8px;
+    box-sizing:border-box;
 }
 
 .contact {
-    /*@apply --regular;*/
-    font-family: 'Open Sans', serif;
-    font-size: 14px;
-    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .contact-remove-button {
-    background-image: url(_icons/remove.png);
+    background-image: url(assets/remove.png);
     background-color: transparent;
     background-repeat: no-repeat;
     border: none;
     height: 8px;
+    width: 8px;
     margin-left: 8px;
+}
+
+.contact-remove-button:focus {
+    /*for accessibility*/
+    outline-width: 0;
 }
 
