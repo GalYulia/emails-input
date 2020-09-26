@@ -65,9 +65,12 @@ export default class EmailsAreaComponent extends ElementCreator{
       this.deleteEmail(e.target);
     }
 
-    // if (e) {
-    //   this.input.focus()
-    // }
+    if (e) {
+      // this.input.focus()
+      // this.element.lastChild.focus()
+      this.element.focus();
+
+    }
   }
 
   private addEmail = (value: string) => {
@@ -91,8 +94,8 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   public get template(): string {
     return`<div class="${styles['emails-editor-container']}" id=${this.ref}>
-        <input class="${styles['emails-input']}" placeholder="add more people...">
-    </div>`;
+                <input class="${styles['emails-input']}" placeholder="add more people...">
+           </div>`;
   }
 
   render = (container: HTMLElement): void => {

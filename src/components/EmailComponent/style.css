@@ -8,13 +8,13 @@
     margin: 0 8px 4px 0;
 }
 
-.container--valid {
+.container_valid {
     border-radius: 100px;
     padding: 0 8px 0 10px;
     background: var(--color-background--transparent);
 }
 
-.container--invalid {
+.container_invalid {
     border-bottom: 1px dashed var(--color-border--error);
     box-sizing:border-box;
     transform: translateZ(0);

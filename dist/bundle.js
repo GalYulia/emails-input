@@ -63,8 +63,8 @@ var EmailsEditor = (function () {
       }
     }
 
-    var css_248z = ".style_container__1xvWy {\n    height: 24px;\n    min-width: 0;\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n}\n\n.style_container--valid__r2_7X {\n    border-radius: 100px;\n    padding: 0 8px 0 10px;\n    background: rgba(102, 153, 255, 0.2);\n}\n\n.style_container--invalid__i5KSO {\n    border-bottom: 1px dashed #d92929;\n    box-sizing:border-box;\n    transform: translateZ(0);\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(assets/remove.png);\n    background-color: transparent;\n    border: none;\n    height: 8px;\n    min-width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    outline: 0 solid;;\n}\n\n";
-    var styles = {"container":"style_container__1xvWy","contact":"style_contact__2FGSj","contact-remove-button":"style_contact-remove-button__yLia_"};
+    var css_248z = ".style_container__1xvWy {\n    height: 24px;\n    min-width: 0;\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n}\n\n.style_container_valid__AjpQ_ {\n    border-radius: 100px;\n    padding: 0 8px 0 10px;\n    background: rgba(102, 153, 255, 0.2);\n}\n\n.style_container_invalid__1w_5v {\n    border-bottom: 1px dashed #d92929;\n    box-sizing:border-box;\n    transform: translateZ(0);\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(assets/remove.png);\n    background-color: transparent;\n    border: none;\n    height: 8px;\n    min-width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    outline: 0 solid;;\n}\n\n";
+    var styles = {"container":"style_container__1xvWy","container_valid":"style_container_valid__AjpQ_","container_invalid":"style_container_invalid__1w_5v","contact":"style_contact__2FGSj","contact-remove-button":"style_contact-remove-button__yLia_"};
     styleInject(css_248z);
 
     var ElementCreator = /** @class */ (function () {
@@ -94,7 +94,7 @@ var EmailsEditor = (function () {
         }
         Object.defineProperty(EmailComponent.prototype, "template", {
             get: function () {
-                return "<span valid=" + this.isValid + "\n                class=\"" + styles['container'] + " \n                " + (this.isValid ? styles['container--valid'] : styles['container--invalid']) + "\">\n                <span class=\"" + styles['contact'] + "\">" + this.value + "</span>\n                <button type=\"button\" class=\"" + styles['contact-remove-button'] + "\">\n            </span>";
+                return "<span valid=" + this.isValid + "\n                class=\"" + styles['container'] + " \n                " + (this.isValid ? styles['container_valid'] : styles['container_invalid']) + "\">\n                <span class=\"" + styles['contact'] + "\">" + this.value + "</span>\n                <button type=\"button\" class=\"" + styles['contact-remove-button'] + "\">\n            </span>";
             },
             enumerable: false,
             configurable: true
@@ -142,6 +142,11 @@ var EmailsEditor = (function () {
                 if (e.target.nodeName == _this.DELETE_BUTTON_TAG) {
                     _this.deleteEmail(e.target);
                 }
+                if (e) {
+                    // this.input.focus()
+                    // this.element.lastChild.focus()
+                    _this.element.focus();
+                }
             };
             _this.addEmail = function (value) {
                 if (!value) {
@@ -174,7 +179,7 @@ var EmailsEditor = (function () {
         };
         Object.defineProperty(EmailsAreaComponent.prototype, "template", {
             get: function () {
-                return "<div class=\"" + styles$1['emails-editor-container'] + "\" id=" + this.ref + ">\n        <input class=\"" + styles$1['emails-input'] + "\" placeholder=\"add more people...\">\n    </div>";
+                return "<div class=\"" + styles$1['emails-editor-container'] + "\" id=" + this.ref + ">\n                <input class=\"" + styles$1['emails-input'] + "\" placeholder=\"add more people...\">\n           </div>";
             },
             enumerable: false,
             configurable: true
