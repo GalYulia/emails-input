@@ -3,8 +3,10 @@ import babel from 'rollup-plugin-babel';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import typeScript from 'rollup-plugin-typescript2';
 import postcssImport from 'postcss-import';
+import postcssVars from 'postcss-css-variables';
 import postcssApply from 'postcss-apply';
 import {eslint} from 'rollup-plugin-eslint';
+
 
 export default {
   input: 'src/index.ts',
@@ -20,7 +22,7 @@ export default {
       extract: false,
       modules: true,
       use: [],
-      plugins: [postcssImport(), postcssApply()]
+      plugins: [postcssImport(), postcssApply(), postcssVars()]
     }),
     typeScript({tsconfig: 'tsconfig.json'}),
     eslint()
