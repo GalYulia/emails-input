@@ -27,7 +27,7 @@
 }
 
 .contact-remove-button {
-    background-image: url(assets/remove.png);
+    background-image: url(../../assets/remove.svg);
     background-color: transparent;
     border: none;
     height: 8px;

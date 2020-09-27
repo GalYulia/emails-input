@@ -3,18 +3,14 @@
     "browser": true,
     "es6": true //todo
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "extends": ["eslint:recommended",  "plugin:@typescript-eslint/eslint-recommended","plugin:@typescript-eslint/recommended"],
   "plugins": ["@typescript-eslint"],
-  "parserOptions": {
-    "sourceType": "module"
-  },
   "rules": {
-    "@typescript-eslint/rule-name": "error",
     "curly": 2,
     "indent": 0,
     "quotes": [2, "single"],
     "semi": [2, "always"],
-    "no-var": 2,
     "no-console": 2,
     "max-len": [
       "error",
@@ -24,4 +20,3 @@
     ]
   }
 }
-  

@@ -1,6 +1,6 @@
 import EmailComponent from '../EmailComponent';
 import ElementCreator from '../ElementCreator';
-import {getUniqueName} from '../../utils';
+import {getUniquesString} from '../../utils';
 // @ts-ignore
 import styles from './style.css';
 
@@ -10,13 +10,14 @@ const ENTER_KEY = 'Enter';
 export default class EmailsAreaComponent extends ElementCreator{
   private readonly ref: string;
   private readonly DELETE_BUTTON_TAG = 'BUTTON';
+  private readonly REF_PREFIX = 'ref';
   private validEmailsCount: number;
   private element: HTMLElement;
   private input: Element;
 
   constructor() {
     super();
-    this.ref = getUniqueName();
+    this.ref = getUniquesString(this.REF_PREFIX);
     this.validEmailsCount = 0;
   }
 
@@ -61,19 +62,18 @@ export default class EmailsAreaComponent extends ElementCreator{
   }
 
   private onClickHandle = (e: any) => {
-    if (e.target.nodeName == this.DELETE_BUTTON_TAG) {
+    if (e.target.nodeName === this.DELETE_BUTTON_TAG) {
       this.deleteEmail(e.target);
     }
 
     if (e) {
       // this.input.focus()
       // this.element.lastChild.focus()
-      this.element.focus();
-
+      e.target.childNodes[this.element.children.length].focus();//todo
     }
   }
 
-  private addEmail = (value: string) => {
+  public addEmail = (value: string) => {
     if (!value) {
       return;
     }
@@ -86,7 +86,7 @@ export default class EmailsAreaComponent extends ElementCreator{
   }
 
   private deleteEmail = (targetElement: any) => {
-    targetElement.parentNode.getAttribute('valid') !== 'true' && this.validEmailsCount--;
+    targetElement.parentNode.getAttribute('valid') === 'true' && this.validEmailsCount--;
     targetElement.parentNode.remove();
   }
 

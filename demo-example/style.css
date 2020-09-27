@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('/dist/assets/fonts/OpenSans-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'OpenSans-Bold';
+    src: url('/dist/assets/fonts/OpenSans-Bold.ttf') format('ttf');
+}
+
+:root {
+    --color-background: #F8F8F7;
+}
+
+.form-example {
+    font-family: 'OpenSans-Regular', sans-serif;
+    font-size: 14px;
+    min-width: 340px;
+    max-width: 540px;
+    background: #F8F8F7;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 24px auto;
+}
+
+.form-wrapper {
+    padding: 32px 50px 24px 50px;
+}
+
+.form-header {
+    font-family: 'OpenSans-Regular', sans-serif;
+    padding-bottom:24px;
+    color: #050038;
+    font-size: 20px;
+}
+
+.form-header_bold {
+    font-family: OpenSans-Bold, sans-serif;
+}
+
+.form-emails-input {
+    max-width: 440px;
+    height: 96px;
+}
+
+.form-footer {
+    display: flex;
+    height: 96px;
+    background-color: #fff;
+    padding: 24px 0 32px 50px;
+    box-sizing: border-box;
+}
+
+.form-button {
+    font-family: 'OpenSans-Regular', sans-serif;
+    height: 40px;
+    background: #4262FF;
+    border-radius: 6px;
+    border: 0;
+    margin-right: 16px;
+    padding: 8px 16px;
+    color: white;
+}
+

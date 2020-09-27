@@ -1,6 +1,16 @@
-export const getUniqueName = (): string => `ref_${Math.random().toString(20).substr(2, 6)}`;
+// from https://gist.github.com/gordonbrander/2230317
+export const getUniquesString = (prefix?: string): string => {
+  const res = `${Math.random().toString(36).substr(2, 9)}`;
+  return prefix ? `${prefix}_${res}` : res;
+};
 
 export const validateEmail = (email: string): boolean => {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //from http://emailregex.com/
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
+
+export const getRandomEmail = (): string => {
+  const topLevelDomains = ['com', 'ru', 'net', 'org'];
+  return `${getUniquesString()}@${getUniquesString()}.${topLevelDomains[Math.floor(Math.random() * topLevelDomains.length)]}`;
+}
