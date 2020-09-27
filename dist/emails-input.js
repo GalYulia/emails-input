@@ -123,6 +123,11 @@ var EmailsInput = (function () {
             var _this = _super.call(this) || this;
             _this.DELETE_BUTTON_TAG = 'BUTTON';
             _this.REF_PREFIX = 'ref';
+            _this.render = function (container) {
+                _super.prototype.render.call(_this, container, 'beforeend');
+                _this.init();
+            };
+            _this.cleanupListeners = function () { return _this.removeEventListeners(); };
             _this.init = function () {
                 _this.element = document.getElementById(_this.ref);
                 _this.input = _this.element.lastElementChild;
@@ -153,9 +158,8 @@ var EmailsInput = (function () {
                     _this.deleteEmail(e.target);
                 }
                 if (e) {
-                    // this.input.focus()
-                    // this.element.lastChild.focus()
-                    e.target.childNodes[_this.element.children.length].focus(); //todo
+                    var clickedEl = e.target.childNodes[_this.element.children.length];
+                    clickedEl && clickedEl.focus();
                 }
             };
             _this.addEmail = function (value) {
@@ -173,10 +177,6 @@ var EmailsInput = (function () {
                 targetElement.parentNode.remove();
             };
             _this.getValidEmailsCount = function () { return _this.validEmailsCount; };
-            _this.render = function (container) {
-                _super.prototype.render.call(_this, container, 'beforeend');
-                _this.init();
-            };
             _this.ref = getUniquesString(_this.REF_PREFIX);
             _this.validEmailsCount = 0;
             return _this;
@@ -186,6 +186,12 @@ var EmailsInput = (function () {
             this.element.addEventListener('keydown', this.onKeyupHandle);
             this.element.addEventListener('paste', this.onPasteHandle);
             this.element.addEventListener('click', this.onClickHandle);
+        };
+        EmailsAreaComponent.prototype.removeEventListeners = function () {
+            this.element.removeEventListener('focusout', this.onBlurHandle);
+            this.element.removeEventListener('keydown', this.onKeyupHandle);
+            this.element.removeEventListener('paste', this.onPasteHandle);
+            this.element.removeEventListener('click', this.onClickHandle);
         };
         Object.defineProperty(EmailsAreaComponent.prototype, "template", {
             get: function () {
@@ -203,7 +209,18 @@ var EmailsInput = (function () {
     function EmailsInput(container) {
         var emailsAreaComponent = new EmailsAreaComponent();
         emailsAreaComponent.render(container);
+        var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.removedNodes[0]) { //todo
+                    emailsAreaComponent.cleanupListeners();
+                }
+            });
+        });
+        observer.observe(container, {
+            childList: true
+        });
         return {
+            inputRef: emailsAreaComponent.ref,
             getValidEmailsCount: function () {
                 alert("Valid emails count: " + emailsAreaComponent.getValidEmailsCount());
             },

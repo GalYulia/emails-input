@@ -8,7 +8,7 @@ const COMMA_KEY = ',';
 const ENTER_KEY = 'Enter';
 
 export default class EmailsAreaComponent extends ElementCreator{
-  private readonly ref: string;
+  public readonly ref: string;
   private readonly DELETE_BUTTON_TAG = 'BUTTON';
   private readonly REF_PREFIX = 'ref';
   private validEmailsCount: number;
@@ -21,6 +21,13 @@ export default class EmailsAreaComponent extends ElementCreator{
     this.validEmailsCount = 0;
   }
 
+  render = (container: HTMLElement): void => {
+    super.render(container, 'beforeend');
+    this.init();
+  }
+
+  cleanupListeners = () => this.removeEventListeners();
+
   private init = () => {
     this.element = document.getElementById(this.ref);
     this.input = this.element.lastElementChild;
@@ -32,6 +39,13 @@ export default class EmailsAreaComponent extends ElementCreator{
     this.element.addEventListener('keydown', this.onKeyupHandle);
     this.element.addEventListener('paste', this.onPasteHandle);
     this.element.addEventListener('click', this.onClickHandle);
+  }
+
+  private removeEventListeners() {
+    this.element.removeEventListener('focusout', this.onBlurHandle);
+    this.element.removeEventListener('keydown', this.onKeyupHandle);
+    this.element.removeEventListener('paste', this.onPasteHandle);
+    this.element.removeEventListener('click', this.onClickHandle);
   }
 
   private onKeyupHandle = (e: any) => {
@@ -67,9 +81,8 @@ export default class EmailsAreaComponent extends ElementCreator{
     }
 
     if (e) {
-      // this.input.focus()
-      // this.element.lastChild.focus()
-      e.target.childNodes[this.element.children.length].focus();//todo
+      const clickedEl = e.target.childNodes[this.element.children.length];
+      clickedEl && clickedEl.focus();
     }
   }
 
@@ -92,16 +105,12 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   public getValidEmailsCount = (): number => this.validEmailsCount;
 
-  public get template(): string {
+   get template(): string {
     return`<div class="${styles['emails-editor-container']}" id=${this.ref}>
                 <input class="${styles['emails-input']}" placeholder="add more people...">
            </div>`;
   }
 
-  render = (container: HTMLElement): void => {
-    super.render(container, 'beforeend');
-    this.init();
-  }
 
 }
 

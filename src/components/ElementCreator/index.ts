@@ -3,7 +3,7 @@ type InsertingMod = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 class ElementCreator {
     private _template: string;
 
-    get template(): string {
+    protected get template(): string {
         return this._template;
     }
 

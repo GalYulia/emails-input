@@ -13,7 +13,7 @@ class EmailComponent extends ElementCreator{
     this.isValid = validateEmail(value);
   }
 
-  get template() {
+    get template() {
     return `<span valid=${this.isValid}
                 class="${styles['container']} 
                 ${this.isValid ? styles['container_valid'] : styles['container_invalid']}">
