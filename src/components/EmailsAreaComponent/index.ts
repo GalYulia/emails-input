@@ -6,22 +6,22 @@ import styles from './style.css';
 
 const COMMA_KEY = ',';
 const ENTER_KEY = 'Enter';
+const DELETE_BUTTON_TAG = 'BUTTON';
+const REF_PREFIX = 'ref';
 
 export default class EmailsAreaComponent extends ElementCreator{
   public readonly ref: string;
-  private readonly DELETE_BUTTON_TAG = 'BUTTON';
-  private readonly REF_PREFIX = 'ref';
   private validEmailsCount: number;
   private element: HTMLElement;
   private input: Element;
 
   constructor() {
     super();
-    this.ref = getUniquesString(this.REF_PREFIX);
+    this.ref = getUniquesString(REF_PREFIX);
     this.validEmailsCount = 0;
   }
 
-  render = (container: HTMLElement): void => {
+  render = (container: Element | null): void => {
     super.render(container, 'beforeend');
     this.init();
   }
@@ -48,24 +48,27 @@ export default class EmailsAreaComponent extends ElementCreator{
     this.element.removeEventListener('click', this.onClickHandle);
   }
 
-  private onKeyupHandle = (e: any) => {
+  private onKeyupHandle = (e: KeyboardEvent) => {
     if (e.key === ENTER_KEY) {
+      //@ts-ignore
       return this.addEmail(e.target.value);
     }
 
     if (e.key === COMMA_KEY) {
       e.preventDefault();
+      //@ts-ignore
       return this.addEmail(e.target.value.split(',')[0]);
     }
   }
 
-  private onBlurHandle = (e: any) => {
+  private onBlurHandle = (e: FocusEvent) => {
+    //@ts-ignore
     this.addEmail(e.target.value);
   }
 
-  private onPasteHandle = (e: any) => {
+  private onPasteHandle = (e: ClipboardEvent) => {
     e.preventDefault();
-// @ts-ignore
+    //@ts-ignore
     const pastedData= (e.clipboardData || window?.clipboardData).getData('text');
 
     if (pastedData.includes(COMMA_KEY)) {
@@ -75,12 +78,15 @@ export default class EmailsAreaComponent extends ElementCreator{
     this.addEmail(pastedData);
   }
 
-  private onClickHandle = (e: any) => {
-    if (e.target.nodeName === this.DELETE_BUTTON_TAG) {
+  private onClickHandle = (e: MouseEvent) => {
+    //@ts-ignore
+    if (e.target.nodeName === DELETE_BUTTON_TAG) {
+      //@ts-ignore
       this.deleteEmail(e.target.parentNode);
     }
 
     if (e) {
+      //@ts-ignore
       const clickedEl = e.target.childNodes[this.element.children.length];
       clickedEl && clickedEl.focus();
     }
@@ -90,7 +96,7 @@ export default class EmailsAreaComponent extends ElementCreator{
     if (!value) {
       return;
     }
-    // @ts-ignore:
+    //@ts-ignore
     this.input.value = '';
 
     const emailComponent = new EmailComponent(value);
@@ -98,7 +104,7 @@ export default class EmailsAreaComponent extends ElementCreator{
     emailComponent.isValid && this.validEmailsCount++ ;
   }
 
-  private deleteEmail = (targetElement: any) => {
+  private deleteEmail = (targetElement: HTMLElement) => {
     targetElement.getAttribute('valid') === 'true' && this.validEmailsCount--;
     this.element.removeChild(targetElement);
   }
@@ -110,8 +116,6 @@ export default class EmailsAreaComponent extends ElementCreator{
                 <input class="${styles['emails-input']}" placeholder="add more people...">
            </div>`;
   }
-
-
 }
 
 

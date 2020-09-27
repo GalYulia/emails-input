@@ -42,8 +42,26 @@ var EmailsInput = (function () {
     };
     var getRandomEmail = function () {
         var topLevelDomains = ['com', 'ru', 'net', 'org'];
-        return getUniquesString() + "@" + getUniquesString() + "." + topLevelDomains[Math.floor(Math.random() * topLevelDomains.length)];
+        var randomDomain = topLevelDomains[Math.floor(Math.random() * topLevelDomains.length)];
+        return getUniquesString() + "@" + getUniquesString() + "." + randomDomain;
     };
+
+    var ElementCreator = /** @class */ (function () {
+        function ElementCreator() {
+        }
+        Object.defineProperty(ElementCreator.prototype, "template", {
+            get: function () {
+                return this._template;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        ElementCreator.prototype.render = function (container, mod) {
+            if (mod === void 0) { mod = 'beforebegin'; }
+            container.insertAdjacentHTML(mod, this.template);
+        };
+        return ElementCreator;
+    }());
 
     function styleInject(css, ref) {
       if ( ref === void 0 ) ref = {};
@@ -72,26 +90,9 @@ var EmailsInput = (function () {
       }
     }
 
-    var css_248z = ".style_container__1xvWy {\n    height: 24px;\n    min-width: 0;\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n}\n\n.style_container__1xvWy::-ms-clear {\n    display: none;\n    height: 0;\n    width: 0;\n}\n\n.style_container_valid__AjpQ_ {\n    border-radius: 100px;\n    padding: 0 8px 0 10px;\n    background: rgba(102, 153, 255, 0.2);\n}\n\n.style_container_invalid__1w_5v {\n    border-bottom: 1px dashed #d92929;\n    box-sizing:border-box;\n    transform: translateZ(0);\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(\"data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22 width%3D%228%22 height%3D%228%22%3E%3Cimage width%3D%228%22 height%3D%228%22 xlink%3Ahref%3D%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAAgAAAAIBAMAAAA2IaO4AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAFVBMVEUAAAAFADgFADgFADgF ADgFADj%2F%2F%2F9NfUdvAAAABXRSTlMAn19goPODVoEAAAABYktHRAZhZrh9AAAACXBIWXMAAAsTAAAL EwEAmpwYAAAAB3RJTUUH5AkbCDMzjqEURQAAAC9JREFUCNcFwTERACEMALAcOHgFMHRnoAreQevf C4mPLddos%2BKQjShG5xJnlp%2F7AFFFBFIZZWr2AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI3 VDA4OjUxOjUxKzAzOjAww64tsgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yN1QwODo1MTo1 MSswMzowMLLzlQ4AAAAASUVORK5CYII%3D%22%2F%3E%3C%2Fsvg%3E\");\n    background-color: transparent;\n    border: none;\n    height: 8px;\n    min-width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    outline: 0 solid;;\n}\n\n";
+    var css_248z = ".style_container__1xvWy {\n    height: 24px;\n    min-width: 0;\n    display: flex;\n    align-items: center;\n    margin: 0 8px 4px 0;\n}\n\n.style_container_valid__AjpQ_ {\n    border-radius: 100px;\n    padding: 0 8px 0 10px;\n    background: rgba(102, 153, 255, 0.2);\n}\n\n.style_container_invalid__1w_5v {\n    border-bottom: 1px dashed #d92929;\n    box-sizing:border-box;\n    transform: translateZ(0);\n}\n\n.style_contact__2FGSj {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.style_contact-remove-button__yLia_ {\n    background-image: url(\"data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22 width%3D%228%22 height%3D%228%22%3E%3Cimage width%3D%228%22 height%3D%228%22 xlink%3Ahref%3D%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAAgAAAAIBAMAAAA2IaO4AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAFVBMVEUAAAAFADgFADgFADgF ADgFADj%2F%2F%2F9NfUdvAAAABXRSTlMAn19goPODVoEAAAABYktHRAZhZrh9AAAACXBIWXMAAAsTAAAL EwEAmpwYAAAAB3RJTUUH5AkbCDMzjqEURQAAAC9JREFUCNcFwTERACEMALAcOHgFMHRnoAreQevf C4mPLddos%2BKQjShG5xJnlp%2F7AFFFBFIZZWr2AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA5LTI3 VDA4OjUxOjUxKzAzOjAww64tsgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wOS0yN1QwODo1MTo1 MSswMzowMLLzlQ4AAAAASUVORK5CYII%3D%22%2F%3E%3C%2Fsvg%3E\");\n    background-color: transparent;\n    border: none;\n    height: 8px;\n    min-width: 8px;\n    margin-left: 8px;\n}\n\n.style_contact-remove-button__yLia_:focus {\n    outline: 0 solid;;\n}\n\n";
     var styles = {"container":"style_container__1xvWy","container_valid":"style_container_valid__AjpQ_","container_invalid":"style_container_invalid__1w_5v","contact":"style_contact__2FGSj","contact-remove-button":"style_contact-remove-button__yLia_"};
     styleInject(css_248z);
-
-    var ElementCreator = /** @class */ (function () {
-        function ElementCreator() {
-        }
-        Object.defineProperty(ElementCreator.prototype, "template", {
-            get: function () {
-                return this._template;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        ElementCreator.prototype.render = function (container, mod) {
-            if (mod === void 0) { mod = 'beforebegin'; }
-            container.insertAdjacentHTML(mod, this.template);
-        };
-        return ElementCreator;
-    }());
 
     var EmailComponent = /** @class */ (function (_super) {
         __extends(EmailComponent, _super);
@@ -103,7 +104,7 @@ var EmailsInput = (function () {
         }
         Object.defineProperty(EmailComponent.prototype, "template", {
             get: function () {
-                return "<span valid=" + this.isValid + "\n                class=\"" + styles['container'] + " \n                " + (this.isValid ? styles['container_valid'] : styles['container_invalid']) + "\">\n                <span class=\"" + styles['contact'] + "\">" + this.value + "</span>\n                <button type=\"button\" class=\"" + styles['contact-remove-button'] + "\">\n            </span>";
+                return "<span valid=" + this.isValid + "\n              class=\"" + styles['container'] + " \n              " + (this.isValid ? styles['container_valid'] : styles['container_invalid']) + "\">\n              <span class=\"" + styles['contact'] + "\">" + this.value + "</span>\n              <button type=\"button\" class=\"" + styles['contact-remove-button'] + "\">\n          </span>";
             },
             enumerable: false,
             configurable: true
@@ -111,18 +112,18 @@ var EmailsInput = (function () {
         return EmailComponent;
     }(ElementCreator));
 
-    var css_248z$1 = ".style_emails-editor-container__2zuNF {\n  font-family: 'Open Sans', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 100%;\n    box-sizing: border-box;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: flex-start;\n    background: #ffffff;\n    border: 1px solid #C3C2CF;\n    border-radius: 4px;\n    padding: 8px;\n    overflow-y: auto;\n    cursor: text;\n}\n.style_emails-input__2gLac {\n  font-family: 'Open Sans', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 24px;\n    flex: 1 0 auto;\n    margin: 0 8px 4px 0;\n    outline: 0 solid;;\n    border: 0;\n}";
+    var css_248z$1 = ".style_emails-editor-container__2zuNF {\n  font-family: 'Open Sans', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 100%;\n    box-sizing: border-box;\n    display: flex;\n    flex-wrap: wrap;\n    align-content: flex-start;\n    background: #ffffff;\n    border: 1px solid #C3C2CF;\n    border-radius: 4px;\n    padding: 8px;\n    overflow-y: auto;\n    cursor: text;\n}\n.style_emails-input__2gLac {\n  font-family: 'Open Sans', sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n\n    height: 24px;\n    flex: 1 0 auto;\n    margin: 0 8px 4px 0;\n    outline: 0 solid;;\n    border: 0;\n}\n.style_emails-input__2gLac::-ms-clear {\n    display: none;\n    height: 0;\n    width: 0;\n}";
     var styles$1 = {"emails-editor-container":"style_emails-editor-container__2zuNF","emails-input":"style_emails-input__2gLac"};
     styleInject(css_248z$1);
 
     var COMMA_KEY = ',';
     var ENTER_KEY = 'Enter';
+    var DELETE_BUTTON_TAG = 'BUTTON';
+    var REF_PREFIX = 'ref';
     var EmailsAreaComponent = /** @class */ (function (_super) {
         __extends(EmailsAreaComponent, _super);
         function EmailsAreaComponent() {
             var _this = _super.call(this) || this;
-            _this.DELETE_BUTTON_TAG = 'BUTTON';
-            _this.REF_PREFIX = 'ref';
             _this.render = function (container) {
                 _super.prototype.render.call(_this, container, 'beforeend');
                 _this.init();
@@ -135,19 +136,22 @@ var EmailsInput = (function () {
             };
             _this.onKeyupHandle = function (e) {
                 if (e.key === ENTER_KEY) {
+                    //@ts-ignore
                     return _this.addEmail(e.target.value);
                 }
                 if (e.key === COMMA_KEY) {
                     e.preventDefault();
+                    //@ts-ignore
                     return _this.addEmail(e.target.value.split(',')[0]);
                 }
             };
             _this.onBlurHandle = function (e) {
+                //@ts-ignore
                 _this.addEmail(e.target.value);
             };
             _this.onPasteHandle = function (e) {
                 e.preventDefault();
-                // @ts-ignore
+                //@ts-ignore
                 var pastedData = (e.clipboardData || (window === null || window === void 0 ? void 0 : window.clipboardData)).getData('text');
                 if (pastedData.includes(COMMA_KEY)) {
                     return pastedData.split(COMMA_KEY).forEach(function (email) { return _this.addEmail(email); });
@@ -155,10 +159,13 @@ var EmailsInput = (function () {
                 _this.addEmail(pastedData);
             };
             _this.onClickHandle = function (e) {
-                if (e.target.nodeName === _this.DELETE_BUTTON_TAG) {
+                //@ts-ignore
+                if (e.target.nodeName === DELETE_BUTTON_TAG) {
+                    //@ts-ignore
                     _this.deleteEmail(e.target.parentNode);
                 }
                 if (e) {
+                    //@ts-ignore
                     var clickedEl = e.target.childNodes[_this.element.children.length];
                     clickedEl && clickedEl.focus();
                 }
@@ -167,7 +174,7 @@ var EmailsInput = (function () {
                 if (!value) {
                     return;
                 }
-                // @ts-ignore:
+                //@ts-ignore
                 _this.input.value = '';
                 var emailComponent = new EmailComponent(value);
                 emailComponent.render(_this.input, 'beforebegin');
@@ -178,7 +185,7 @@ var EmailsInput = (function () {
                 _this.element.removeChild(targetElement);
             };
             _this.getValidEmailsCount = function () { return _this.validEmailsCount; };
-            _this.ref = getUniquesString(_this.REF_PREFIX);
+            _this.ref = getUniquesString(REF_PREFIX);
             _this.validEmailsCount = 0;
             return _this;
         }
@@ -189,6 +196,7 @@ var EmailsInput = (function () {
             this.element.addEventListener('click', this.onClickHandle);
         };
         EmailsAreaComponent.prototype.removeEventListeners = function () {
+            console.log('clean');
             this.element.removeEventListener('focusout', this.onBlurHandle);
             this.element.removeEventListener('keydown', this.onKeyupHandle);
             this.element.removeEventListener('paste', this.onPasteHandle);

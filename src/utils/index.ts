@@ -12,5 +12,6 @@ export const validateEmail = (email: string): boolean => {
 
 export const getRandomEmail = (): string => {
   const topLevelDomains = ['com', 'ru', 'net', 'org'];
-  return `${getUniquesString()}@${getUniquesString()}.${topLevelDomains[Math.floor(Math.random() * topLevelDomains.length)]}`;
-}
+  const randomDomain = topLevelDomains[Math.floor(Math.random() * topLevelDomains.length)];
+  return `${getUniquesString()}@${getUniquesString()}.${randomDomain}`;
+};
