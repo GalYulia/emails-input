@@ -145,8 +145,12 @@ var EmailsInput = (function () {
                 _this.addEmail(e.target.value);
             };
             _this.onPasteHandle = function (e) {
+                var _a;
                 e.preventDefault();
-                var pastedData = (e.clipboardData || (window === null || window === void 0 ? void 0 : window.clipboardData)).getData('text');
+                var pastedData = (_a = e.clipboardData) === null || _a === void 0 ? void 0 : _a.getData('text/plain');
+                if (!pastedData) {
+                    return;
+                }
                 if (pastedData.includes(COMMA_KEY)) {
                     return pastedData.split(COMMA_KEY).forEach(function (email) { return _this.addEmail(email); });
                 }
@@ -154,7 +158,7 @@ var EmailsInput = (function () {
             };
             _this.onClickHandle = function (e) {
                 if (e.target.nodeName === DELETE_BUTTON_TAG) {
-                    _this.deleteEmail(e.target.parentNode);
+                    _this.deleteEmail(e.target.parentElement);
                 }
                 if (e) {
                     var clickedEl = e.target.childNodes[_this.element.children.length];
