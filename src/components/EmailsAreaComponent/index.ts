@@ -33,14 +33,14 @@ export default class EmailsAreaComponent extends ElementCreator{
     this.addEventListeners();
   }
 
-  private addEventListeners() {
+  private addEventListeners = () => {
     this.element.addEventListener('focusout', this.onBlurHandle);
     this.element.addEventListener('keydown', this.onKeyupHandle);
     this.element.addEventListener('paste', this.onPasteHandle);
     this.element.addEventListener('click', this.onClickHandle);
   }
 
-  private removeEventListeners() {
+  private removeEventListeners = () => {
     this.element.removeEventListener('focusout', this.onBlurHandle);
     this.element.removeEventListener('keydown', this.onKeyupHandle);
     this.element.removeEventListener('paste', this.onPasteHandle);

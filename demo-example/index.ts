@@ -1,12 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function ExampleForm(emailsInput: any, btn1: any, btn2: any):any {
-    btn1.addEventListener('click', ()=> {
-        emailsInput.addEmail();
-    });
+type EmailInputType = {
+  inputRef: string | null;
+  getValidEmailsCount: () => boolean;
+  addEmail: (value?: string) => void;
+};
 
-    btn2.addEventListener('click', ()=> {
-        emailsInput.getValidEmailsCount();
-    });
-}
+const initExampleForm = (
+  emailsInput: EmailInputType,
+  addEmailBtn: HTMLElement,
+  getEmailsCountBtn: HTMLElement,
+) => {
+  addEmailBtn.addEventListener('click', () => {
+    emailsInput.addEmail();
+  });
 
-export default ExampleForm;
+  getEmailsCountBtn.addEventListener('click', () => {
+    alert(`Valid emails count: ${emailsInput.getValidEmailsCount()}`);
+  });
+};
+
+export default initExampleForm;

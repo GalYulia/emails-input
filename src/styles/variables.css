@@ -1,1 +1,6 @@
-:root {}
+:root {
+    --ls: 8px;
+    --ls--sm: calc(var(--ls) * 2);
+    --ls--md: calc(var(--ls) * 3);
+    --ls--lg: calc(var(--ls) * 4);
+}

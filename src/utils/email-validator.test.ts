@@ -1,8 +1,13 @@
-import {validateEmail} from './index';
-describe('EmailComponent constructs with value', () => {
-    it('email invalid', () => {
-        const isValid = validateEmail('em@.sdf');
+import { validateEmail } from './index';
 
-        expect(isValid).toBeFalsy();
-    });
+describe('Email validation', () => {
+  it('email invalid', () => {
+    expect(validateEmail('em@.sdf')).toBeFalsy();
+    expect(validateEmail('em@mail.r')).toBeFalsy();
+    expect(validateEmail('em@mail d.sdf')).toBeFalsy();
+  });
+
+  it('email valid', () => {
+    expect(validateEmail('em@dasdasd.sdf')).toBeTruthy();
+  });
 });

@@ -1,8 +1,8 @@
-import {validateEmail} from '../../utils';
+import { validateEmail } from '../../utils';
 import ElementCreator from '../ElementCreator';
 import styles from './style.css';
 
-class EmailComponent extends ElementCreator{
+class EmailComponent extends ElementCreator {
   public readonly isValid: boolean;
   private readonly value: string;
 
