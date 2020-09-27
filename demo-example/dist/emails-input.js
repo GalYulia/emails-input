@@ -30,13 +30,11 @@ var EmailsInput = (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    // from https://gist.github.com/gordonbrander/2230317
     var getUniquesString = function (prefix) {
         var res = "" + Math.random().toString(36).substr(2, 9);
         return prefix ? prefix + "_" + res : res;
     };
     var validateEmail = function (email) {
-        //from http://emailregex.com/
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     };
@@ -46,7 +44,7 @@ var EmailsInput = (function () {
         return getUniquesString() + "@" + getUniquesString() + "." + randomDomain;
     };
 
-    var ElementCreator = /** @class */ (function () {
+    var ElementCreator = (function () {
         function ElementCreator() {
         }
         Object.defineProperty(ElementCreator.prototype, "template", {
@@ -94,7 +92,7 @@ var EmailsInput = (function () {
     var styles = {"container":"style_container__1xvWy","container_valid":"style_container_valid__AjpQ_","container_invalid":"style_container_invalid__1w_5v","contact":"style_contact__2FGSj","contact-remove-button":"style_contact-remove-button__yLia_"};
     styleInject(css_248z);
 
-    var EmailComponent = /** @class */ (function (_super) {
+    var EmailComponent = (function (_super) {
         __extends(EmailComponent, _super);
         function EmailComponent(value) {
             var _this = _super.call(this) || this;
@@ -120,7 +118,7 @@ var EmailsInput = (function () {
     var ENTER_KEY = 'Enter';
     var DELETE_BUTTON_TAG = 'BUTTON';
     var REF_PREFIX = 'ref';
-    var EmailsAreaComponent = /** @class */ (function (_super) {
+    var EmailsAreaComponent = (function (_super) {
         __extends(EmailsAreaComponent, _super);
         function EmailsAreaComponent() {
             var _this = _super.call(this) || this;
@@ -136,22 +134,18 @@ var EmailsInput = (function () {
             };
             _this.onKeyupHandle = function (e) {
                 if (e.key === ENTER_KEY) {
-                    //@ts-ignore
                     return _this.addEmail(e.target.value);
                 }
                 if (e.key === COMMA_KEY) {
                     e.preventDefault();
-                    //@ts-ignore
                     return _this.addEmail(e.target.value.split(',')[0]);
                 }
             };
             _this.onBlurHandle = function (e) {
-                //@ts-ignore
                 _this.addEmail(e.target.value);
             };
             _this.onPasteHandle = function (e) {
                 e.preventDefault();
-                //@ts-ignore
                 var pastedData = (e.clipboardData || (window === null || window === void 0 ? void 0 : window.clipboardData)).getData('text');
                 if (pastedData.includes(COMMA_KEY)) {
                     return pastedData.split(COMMA_KEY).forEach(function (email) { return _this.addEmail(email); });
@@ -159,13 +153,10 @@ var EmailsInput = (function () {
                 _this.addEmail(pastedData);
             };
             _this.onClickHandle = function (e) {
-                //@ts-ignore
                 if (e.target.nodeName === DELETE_BUTTON_TAG) {
-                    //@ts-ignore
                     _this.deleteEmail(e.target.parentNode);
                 }
                 if (e) {
-                    //@ts-ignore
                     var clickedEl = e.target.childNodes[_this.element.children.length];
                     clickedEl && clickedEl.focus();
                 }
@@ -174,7 +165,6 @@ var EmailsInput = (function () {
                 if (!value) {
                     return;
                 }
-                //@ts-ignore
                 _this.input.value = '';
                 var emailComponent = new EmailComponent(value);
                 emailComponent.render(_this.input, 'beforebegin');
@@ -196,7 +186,6 @@ var EmailsInput = (function () {
             this.element.addEventListener('click', this.onClickHandle);
         };
         EmailsAreaComponent.prototype.removeEventListeners = function () {
-            console.log('clean');
             this.element.removeEventListener('focusout', this.onBlurHandle);
             this.element.removeEventListener('keydown', this.onKeyupHandle);
             this.element.removeEventListener('paste', this.onPasteHandle);
@@ -220,7 +209,7 @@ var EmailsInput = (function () {
         emailsAreaComponent.render(container);
         var observer = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
-                if (mutation.removedNodes[0]) { //todo
+                if (mutation.removedNodes[0]) {
                     emailsAreaComponent.cleanupListeners();
                 }
             });
