@@ -7,6 +7,7 @@ import postcssVars from 'postcss-css-variables';
 import postcssApply from 'postcss-apply';
 import {eslint} from 'rollup-plugin-eslint';
 import url from 'postcss-url';
+import copy from 'rollup-plugin-copy';
 
 
 const getPlugins = () => [
@@ -20,9 +21,12 @@ const getPlugins = () => [
   }),
   typeScript({tsconfig: 'tsconfig.json'}),
   eslint({include: 'src/'}),
-  // copy({
-  //   targets: [{ src: 'src/assets/*', dest: 'dist/assets' }]
-  // }),
+  copy({
+    targets: [
+        { src: 'src/assets/*', dest: 'dist/assets' },
+        // { src: 'demo-example/index.html', dest: 'demo-example/dist'},
+        { src: 'dist/emails-input.js', dest: 'demo-example/dist'}]}
+  ),
 
   // sizeSnapshot(), // напишет в консоль размер бандла
   // terser(), // минификатор совместимый с ES2015+, форк и наследник UglifyES

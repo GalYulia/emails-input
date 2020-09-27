@@ -3,11 +3,6 @@
     src: url('/dist/assets/fonts/OpenSans-Regular.woff') format('woff');
 }
 
-@font-face {
-    font-family: 'OpenSans-Bold';
-    src: url('/dist/assets/fonts/OpenSans-Bold.ttf') format('ttf');
-}
-
 :root {
     --color-background: #F8F8F7;
 }

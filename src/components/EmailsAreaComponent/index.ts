@@ -65,8 +65,8 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   private onPasteHandle = (e: any) => {
     e.preventDefault();
-
-    const pastedData= e.clipboardData.getData('text'); //todo window
+// @ts-ignore
+    const pastedData= (e.clipboardData || window?.clipboardData).getData('text');
 
     if (pastedData.includes(COMMA_KEY)) {
       return pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
@@ -77,7 +77,7 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   private onClickHandle = (e: any) => {
     if (e.target.nodeName === this.DELETE_BUTTON_TAG) {
-      this.deleteEmail(e.target);
+      this.deleteEmail(e.target.parentNode);
     }
 
     if (e) {
@@ -99,8 +99,8 @@ export default class EmailsAreaComponent extends ElementCreator{
   }
 
   private deleteEmail = (targetElement: any) => {
-    targetElement.parentNode.getAttribute('valid') === 'true' && this.validEmailsCount--;
-    targetElement.parentNode.remove();
+    targetElement.getAttribute('valid') === 'true' && this.validEmailsCount--;
+    this.element.removeChild(targetElement);
   }
 
   public getValidEmailsCount = (): number => this.validEmailsCount;
