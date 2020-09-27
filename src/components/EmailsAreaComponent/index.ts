@@ -1,7 +1,6 @@
 import EmailComponent from '../EmailComponent';
 import ElementCreator from '../ElementCreator';
 import {getUniquesString} from '../../utils';
-// @ts-ignore
 import styles from './style.css';
 
 const COMMA_KEY = ',';
@@ -13,7 +12,7 @@ export default class EmailsAreaComponent extends ElementCreator{
   public readonly ref: string;
   private validEmailsCount: number;
   private element: HTMLElement;
-  private input: Element;
+  private input: HTMLInputElement;
 
   constructor() {
     super();
@@ -30,7 +29,7 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   private init = () => {
     this.element = document.getElementById(this.ref);
-    this.input = this.element.lastElementChild;
+    this.input = this.element.lastElementChild as HTMLInputElement;
     this.addEventListeners();
   }
 
@@ -50,26 +49,26 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   private onKeyupHandle = (e: KeyboardEvent) => {
     if (e.key === ENTER_KEY) {
-      //@ts-ignore
-      return this.addEmail(e.target.value);
+      return this.addEmail((e.target as HTMLInputElement).value);
     }
 
     if (e.key === COMMA_KEY) {
       e.preventDefault();
-      //@ts-ignore
-      return this.addEmail(e.target.value.split(',')[0]);
+      return this.addEmail((e.target as HTMLInputElement).value.split(',')[0]);
     }
   }
 
   private onBlurHandle = (e: FocusEvent) => {
-    //@ts-ignore
-    this.addEmail(e.target.value);
+    this.addEmail((e.target as HTMLInputElement).value);
   }
 
   private onPasteHandle = (e: ClipboardEvent) => {
     e.preventDefault();
-    //@ts-ignore
-    const pastedData= (e.clipboardData || window?.clipboardData).getData('text');
+
+    const pastedData = e.clipboardData?.getData('text/plain');
+    if (!pastedData) {
+      return;
+    }
 
     if (pastedData.includes(COMMA_KEY)) {
       return pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
@@ -79,16 +78,13 @@ export default class EmailsAreaComponent extends ElementCreator{
   }
 
   private onClickHandle = (e: MouseEvent) => {
-    //@ts-ignore
-    if (e.target.nodeName === DELETE_BUTTON_TAG) {
-      //@ts-ignore
-      this.deleteEmail(e.target.parentNode);
+    if ((e.target as HTMLElement).nodeName === DELETE_BUTTON_TAG) {
+      this.deleteEmail((e.target as HTMLElement).parentElement);
     }
 
     if (e) {
-      //@ts-ignore
-      const clickedEl = e.target.childNodes[this.element.children.length];
-      clickedEl && clickedEl.focus();
+      const clickedEl = (e.target as HTMLElement).childNodes[this.element.children.length];
+      clickedEl && (clickedEl as HTMLElement).focus();
     }
   }
 
@@ -96,7 +92,7 @@ export default class EmailsAreaComponent extends ElementCreator{
     if (!value) {
       return;
     }
-    //@ts-ignore
+
     this.input.value = '';
 
     const emailComponent = new EmailComponent(value);
@@ -111,7 +107,7 @@ export default class EmailsAreaComponent extends ElementCreator{
 
   public getValidEmailsCount = (): number => this.validEmailsCount;
 
-   get template(): string {
+  get template(): string {
     return`<div class="${styles['emails-editor-container']}" id=${this.ref}>
                 <input class="${styles['emails-input']}" placeholder="add more people...">
            </div>`;

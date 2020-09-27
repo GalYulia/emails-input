@@ -1,6 +1,5 @@
 import {validateEmail} from '../../utils';
 import ElementCreator from '../ElementCreator';
-//@ts-ignore
 import styles from './style.css';
 
 class EmailComponent extends ElementCreator{
@@ -14,7 +13,7 @@ class EmailComponent extends ElementCreator{
   }
 
   get template() {
-  return `<span valid=${this.isValid}
+    return `<span valid=${this.isValid}
               class="${styles['container']} 
               ${this.isValid ? styles['container_valid'] : styles['container_invalid']}">
               <span class="${styles['contact']}">${this.value}</span>
