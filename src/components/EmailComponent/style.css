@@ -8,12 +8,6 @@
     margin: 0 8px 4px 0;
 }
 
-.container::-ms-clear {
-    display: none;
-    height: 0;
-    width: 0;
-}
-
 .container_valid {
     border-radius: 100px;
     padding: 0 8px 0 10px;

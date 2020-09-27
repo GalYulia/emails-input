@@ -9,6 +9,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "serve": "serve demo-example/dist",
+    "test": "jest",
     "lint": "eslint --ext .ts ./src"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "autoprefixer": "^10.0.0",
+    "jest": "^26.4.2",
     "postcss-apply": "^0.12.0",
     "postcss-css-variables": "^0.17.0",
     "postcss-custom-properties": "^10.0.0",
