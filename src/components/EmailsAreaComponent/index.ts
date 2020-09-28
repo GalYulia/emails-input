@@ -75,7 +75,7 @@ export default class EmailsAreaComponent extends ElementCreator {
       return;
     }
 
-    if (pastedData.includes(COMMA_KEY)) {
+    if (pastedData.indexOf(COMMA_KEY) !== -1) {
       return pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
     }
 
