@@ -25,16 +25,22 @@ A js-library with input for emails.
     ```
 
 ## EmailsInput API 
-EmailsInput is the main class of library.  
+EmailsInput is the main component of the library. It takes one argument.  
 
 | Property | Description | Type |
 | -------- | ----------- | ---- | 
 | container | html element where input will render | Element , `null` |
 
-The return value id
+Returned value is an object and consists of fields
+
+| Property | Description | Type | Example
+| -------- | ----------- | ---- | ---- |
+| inputRef | HTML id attribute of emails input | string | `ref_a7jodjdw7`|
+| getValidEmailsCount | function that returns valid emails count  | () => number | |
+| addEmail | function for adding emails  | (value: string) => void | |
 
 ### Development
-For library local installation it's necessary to install [Node](https://nodejs.org/en/). 
+For local installation it's necessary to install [Node](https://nodejs.org/en/). 
 #### Instal dependencies
 To install dependencies run the command below in the root folder of the project
 ```
