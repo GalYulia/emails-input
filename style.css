@@ -3,7 +3,8 @@
     --color-background-white: #FFF;
     --color-shadow: rgba(0, 0, 0, 0.2);
     --color-text: #050038;
-    --color-button: #4262FF;
+    --color-button: #4262ff;
+    --color-button-shades: rgba(66, 98, 288, 0.7);
     --ls: 8px;
     --ls--sm: calc(var(--ls) * 2);
     --ls--md: calc(var(--ls) * 3);
@@ -58,5 +59,13 @@
     margin-right: 16px;
     padding: var(--ls) var(--ls--sm);
     color: var(--color-background-white);
+}
+
+.form-button:focus {
+    outline: 0 solid;
+}
+
+.form-button:hover {
+    background-color: var(--color-button-shades);
 }
 
