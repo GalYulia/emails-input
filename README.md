@@ -65,3 +65,8 @@ yarn serve:dev
 ```
 
 The project will be hosted on http://localhost:5000
+
+#### Run tests
+```
+yarn test
+```
