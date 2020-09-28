@@ -12,14 +12,14 @@
 }
 
 .form-example {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
     min-width: 340px;
     max-width: 540px;
-    background: var(--color-background);
-    box-shadow: 0 8px 20px var(--color-shadow);
-    border-radius: 8px;
     margin: var(--ls--md) auto;
+    background: var(--color-background);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px var(--color-shadow);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
 }
 
 .form-wrapper {
@@ -33,7 +33,6 @@
 }
 
 .form-header_bold {
-    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
 }
 
@@ -45,20 +44,21 @@
 .form-footer {
     display: flex;
     height: 96px;
-    background-color: var(--color-background-white);
-    padding: var(--ls--md) 0 var(--ls--lg) 50px;
     box-sizing: border-box;
+    padding: var(--ls--md) 0 var(--ls--lg) 50px;
+    background-color: var(--color-background-white);
 }
 
 .form-button {
-    font-family: 'Open Sans', sans-serif;
     height: 40px;
-    background: var(--color-button);
-    border-radius: 6px;
+    padding: var(--ls) var(--ls--sm);
     border: 0;
     margin-right: 16px;
-    padding: var(--ls) var(--ls--sm);
+    background: var(--color-button);
+    border-radius: 6px;
     color: var(--color-background-white);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
 }
 
 .form-button:focus {
@@ -68,4 +68,3 @@
 .form-button:hover {
     background-color: var(--color-button-shades);
 }
-
