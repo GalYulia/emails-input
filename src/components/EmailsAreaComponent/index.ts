@@ -69,7 +69,8 @@ export default class EmailsAreaComponent extends ElementCreator {
   private onPasteHandle = (e: ClipboardEvent) => {
     e.preventDefault();
 
-    const pastedData = e.clipboardData?.getData('text/plain');
+    //@ts-ignore need to define window
+    const pastedData = (e.clipboardData || window?.clipboardData).getData('text');
     if (!pastedData) {
       return;
     }
