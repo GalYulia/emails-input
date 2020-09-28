@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "serve": "yarn build && serve demo-example/dist",
+    "serve:dev": "yarn build && serve demo-example/dist",
+    "serve": "serve demo-example/dist",
     "test": "jest",
     "lint": "eslint --ext .ts ./src"
   },
