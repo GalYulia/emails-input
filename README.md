@@ -1,7 +1,7 @@
 # Emails input
 A js-library with input for emails.
 ## Demo example
-
+You can see an example [here](https://galyulia.github.io/emails-input/)
 
 ## Usage
 1. Link js bundle to your HTML document
