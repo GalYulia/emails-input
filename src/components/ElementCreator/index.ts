@@ -1,4 +1,4 @@
-type InsertingMod = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
+type InsertingModType = 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend';
 
 class ElementCreator {
   private _template: string;
@@ -7,7 +7,7 @@ class ElementCreator {
     return this._template;
   }
 
-  render(container: Element, mod: InsertingMod = 'beforebegin') {
+  render(container: Element, mod: InsertingModType = 'beforebegin') {
     container.insertAdjacentHTML(mod, this.template);
   }
 }

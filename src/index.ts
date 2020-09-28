@@ -8,8 +8,8 @@ function EmailsInput(container: Element | null) {
 
   const observer = new MutationObserver((mutations: Array<MutationRecord>) => {
     mutations.forEach((mutation: MutationRecord) => {
-      if (mutation.removedNodes[0]) {
-        //todo
+      //@ts-ignore
+      if (mutation.removedNodes[0]?.id === emailsAreaComponent.ref) {
         emailsAreaComponent.cleanupListeners();
       }
     });
