@@ -1,3 +1,5 @@
+import './style.css';
+
 type EmailInputType = {
   inputRef: string | null;
   getValidEmailsCount: () => boolean;
