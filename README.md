@@ -1,4 +1,4 @@
-# emails-input
+# Emails input
 A js-library with input for emails.
 ## Demo example
 
@@ -34,8 +34,8 @@ EmailsInput is the main class of library.
 The return value id
 
 ### Development
-For library local installation it's necessary to install [Node](https://nodejs.org/en/).
-####Instal dependencies
+For library local installation it's necessary to install [Node](https://nodejs.org/en/). 
+#### Instal dependencies
 To install dependencies run the command below in the root folder of the project
 ```
 yarn
@@ -44,11 +44,11 @@ or
 ```
 npm install
 ```
-####Build library
+#### Build library
 ```
 yarn build
 ```
-####Launch demo-example
+#### Launch demo-example
 To launch demo-example run
 ```
 yarn serve
