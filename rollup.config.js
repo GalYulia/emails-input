@@ -12,12 +12,12 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import { terser } from 'rollup-plugin-terser';
 
-const getPlugins = (needToExtract = false) => [
+const getPlugins = (needToExtract = false, needCssModules = true) => [
   nodeResolve(),
   babel({ exclude: 'node_modules/**', babelHelpers: 'bundled' }),
   postcss({
     extract: needToExtract,
-    modules: true,
+    modules: needCssModules,
     use: [],
     plugins: [
       postcssImport(),
@@ -53,7 +53,7 @@ export default [
       },
     ],
     plugins: [
-      ...getPlugins(true),
+      ...getPlugins(true, false),
       copy({
         targets: [{ src: 'dist/emails-input.js', dest: 'demo-example/dist' }],
       }),
