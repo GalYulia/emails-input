@@ -25,7 +25,7 @@ function EmailsInput(container: Element | null) {
       return emailsAreaComponent.getValidEmailsCount();
     },
     addEmail: function (value?: string) {
-      emailsAreaComponent.addEmail(value ? value : getRandomEmail());
+      emailsAreaComponent.addEmailAndScroll(value ? value : getRandomEmail());
     },
   };
 }

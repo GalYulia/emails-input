@@ -24,41 +24,43 @@ export default class EmailsAreaComponent extends ElementCreator {
     this.validEmailsCount = 0;
   }
 
-  render = (container: Element | null) => {
+  render(container: Element | null) {
     super.render(container, 'beforeend');
     this.init();
-  };
+  }
 
-  cleanupListeners = () => this.removeEventListeners();
+  cleanupListeners() {
+    this.removeEventListeners();
+  }
 
-  private init = () => {
+  private init() {
     this.element = document.getElementById(this.ref);
     this.input = this.element.lastElementChild as HTMLInputElement;
     this.addEventListeners();
-  };
+  }
 
-  private addEventListeners = () => {
+  private addEventListeners() {
     this.element.addEventListener('focusout', this.onBlurHandle);
     this.element.addEventListener('keydown', this.onKeyupHandle);
     this.element.addEventListener('paste', this.onPasteHandle);
     this.element.addEventListener('click', this.onClickHandle);
-  };
+  }
 
-  private removeEventListeners = () => {
+  private removeEventListeners() {
     this.element.removeEventListener('focusout', this.onBlurHandle);
     this.element.removeEventListener('keydown', this.onKeyupHandle);
     this.element.removeEventListener('paste', this.onPasteHandle);
     this.element.removeEventListener('click', this.onClickHandle);
-  };
+  }
 
   private onKeyupHandle = (e: KeyboardEvent & UserEventType) => {
     if (e.key === ENTER_KEY) {
-      return this.addEmail(e.target.value);
+      this.addEmailAndScroll(e.target.value);
     }
 
     if (e.key === COMMA_KEY) {
       e.preventDefault();
-      return this.addEmail(e.target.value.split(',')[0]);
+      return this.addEmailAndScroll(e.target.value.split(',')[0]);
     }
   };
 
@@ -76,10 +78,12 @@ export default class EmailsAreaComponent extends ElementCreator {
     }
 
     if (pastedData.indexOf(COMMA_KEY) !== -1) {
-      return pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
+      pastedData.split(COMMA_KEY).forEach((email: string) => this.addEmail(email));
+    } else {
+      this.addEmail(pastedData);
     }
 
-    this.addEmail(pastedData);
+    this.scrollToInput();
   };
 
   private onClickHandle = (e: UserEventType & MouseEvent) => {
@@ -93,7 +97,12 @@ export default class EmailsAreaComponent extends ElementCreator {
     }
   };
 
-  public addEmail = (value: string) => {
+  public addEmailAndScroll(value: string) {
+    this.addEmail(value);
+    this.scrollToInput();
+  }
+
+  private addEmail(value: string) {
     if (!value) {
       return;
     }
@@ -103,14 +112,20 @@ export default class EmailsAreaComponent extends ElementCreator {
     const emailComponent = new EmailComponent(value);
     emailComponent.render(this.input, 'beforebegin');
     emailComponent.isValid && this.validEmailsCount++;
-  };
+  }
 
-  private deleteEmail = (targetElement: HTMLElement) => {
+  private scrollToInput() {
+    this.input.scrollIntoView();
+  }
+
+  private deleteEmail(targetElement: HTMLElement) {
     targetElement.getAttribute('valid') === 'true' && this.validEmailsCount--;
     this.element.removeChild(targetElement);
-  };
+  }
 
-  public getValidEmailsCount = (): number => this.validEmailsCount;
+  public getValidEmailsCount(): number {
+    return this.validEmailsCount;
+  }
 
   get template(): string {
     return `<div class="${styles['emails-editor-container']}" id=${this.ref}>
